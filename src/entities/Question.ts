@@ -15,6 +15,9 @@ export class QuestionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   question_id: string;
 
+  @Column("uuid")
+  service_id: string;
+
   @Column('varchar', { length: 50 })
   description: string;
 
