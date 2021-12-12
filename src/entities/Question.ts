@@ -32,5 +32,5 @@ export class QuestionEntity extends BaseEntity {
     eager: false,
   })
   @JoinColumn({ name: 'service_id' })
-  service: ServiceEntity;
+  service: ServiceEntity; 
 }
