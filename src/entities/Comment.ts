@@ -15,7 +15,7 @@ export class CommentEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   comment_id: string;
 
-  @Column('varchar')
+  @Column('varchar', {default: ""})
   content: string;
 
   @Column()
