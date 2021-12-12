@@ -18,7 +18,7 @@ export class QuestionEntity extends BaseEntity {
   @Column("uuid")
   service_id:string;
 
-  @Column('varchar')
+  @Column('varchar', {default: ""})
   description: string;
 
   @CreateDateColumn()
