@@ -18,7 +18,7 @@ export class QuestionEntity extends BaseEntity {
   @Column("uuid")
   service_id:string;
 
-  @Column('varchar', { default: "" })
+  @Column('varchar', {default: ""})
   description: string;
 
   @CreateDateColumn()
@@ -32,5 +32,5 @@ export class QuestionEntity extends BaseEntity {
     eager: false,
   })
   @JoinColumn({ name: 'service_id' })
-  service: ServiceEntity;
+  service: ServiceEntity; 
 }

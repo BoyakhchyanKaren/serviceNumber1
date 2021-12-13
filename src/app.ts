@@ -23,7 +23,7 @@ export const getApplication = (): Express => {
     .use('/api/v1/questions', questionRoutes)
     .use('/api/v1/Swagger', SwaggerUI.serve, SwaggerUI.setup(SwaggerDoc))
     .get('/', (req: Request, res: Response) => {
-      res.redirect("https://pink-team-deployment/api/v1/Swagger")
+      res.redirect("https://pink-team-deployment.herokuapp.com/api/v1/Swagger")
     })
     .all('*', (req: Request, res: Response, next: NextFunction) => {
       next(HttpErr.notFound(`Can't find ${req.originalUrl} on this server!`));
