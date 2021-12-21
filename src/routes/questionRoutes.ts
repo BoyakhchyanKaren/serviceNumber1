@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { QuestionController } from '../controllers/questionController';
 import { createQuestionDto, updateQuestionDto } from '../dtos/question.dtos';
-import { validateRequestSchema } from '../middleware/validate-request-schema';
 import { authMiddleware } from '../middleware/auth-middleware';
+import { validateRequestSchema } from '../middleware/validate-request-schema';
+
 
 const router = Router();
 
