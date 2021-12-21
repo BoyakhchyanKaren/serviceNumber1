@@ -11,6 +11,8 @@ router
   .post(
     createQuestionDto,
     validateRequestSchema,
+    //@ts-ignore
+    authMiddleware,
     QuestionController.createQuestion
   );
 router
