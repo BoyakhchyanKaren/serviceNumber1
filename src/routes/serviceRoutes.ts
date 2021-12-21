@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ServiceController } from '../controllers/serviceController';
+import { authMiddleware } from '../middleware/auth-middleware';
 import {
   createServiceDto,
   updateServiceDto,
@@ -14,6 +15,8 @@ router
   .post(
     createServiceDto,
     validateRequestSchema,
+    //@ts-ignore
+    authMiddleware,
     ServiceController.createService
   );
 router

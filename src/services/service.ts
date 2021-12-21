@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { ServiceEntity } from '../entities/Service';
 import { IService } from '../interfaces';
+import { userRepository } from './user';
+import { userEntity } from '../entities/Users';
 
 @EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> {
@@ -24,6 +26,10 @@ export class ServiceRepository extends Repository<ServiceEntity> {
   }
 
   static async createService(newService: DeepPartial<ServiceEntity>) {
+    const user_id = await newService.user_id;
+    console.log(user_id);
+    const user = await getRepository(userEntity).findOne(user_id);
+    console.log(user);
     const newEcoService = await getRepository(ServiceEntity).create(newService);
     await getRepository(ServiceEntity).save(newEcoService);
     return newEcoService;
