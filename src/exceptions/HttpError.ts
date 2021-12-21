@@ -13,5 +13,9 @@ class HttpError {
   badRequest(message: string) {
     return new Exception(statusCodes.BadRequest, message);
   }
+
+  UnauthorizedError(message:string){
+    return new Exception(statusCodes.UnauthorizedError, message);
+  }  
 }
 export const HttpErr = new HttpError();

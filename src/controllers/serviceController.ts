@@ -5,17 +5,23 @@ import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
 
 export class ServiceController {
+
   static async createService(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log("1");
       const newService = req.body;
+      console.log("2");
+
       const sendToServiceData = await ServiceRepository.createService(
         newService
       );
+      console.log("3");
+
       res.status(StatusCode.CreateRequest).json(sendToServiceData);
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
 
   static async getAllServices(req: Request, res: Response, next: NextFunction) {
     try {
@@ -24,7 +30,7 @@ export class ServiceController {
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
 
   static async getService(req: Request, res: Response, next: NextFunction) {
     try {
@@ -37,7 +43,7 @@ export class ServiceController {
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
 
   static async updateService(req: Request, res: Response, next: NextFunction) {
     try {
@@ -55,7 +61,7 @@ export class ServiceController {
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
 
   static async deleteService(req: Request, res: Response, next: NextFunction) {
     try {
@@ -73,5 +79,6 @@ export class ServiceController {
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
+
 }

@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { ServiceEntity } from './src/entities/Service';
 import { CommentEntity } from './src/entities/Comment';
 import { QuestionEntity } from './src/entities/Question';
+import { userEntity } from './src/entities/Users';
+import { tokenEntity } from './src/entities/Tokens';
 
 dotenv.config();
 
@@ -15,16 +17,16 @@ const config: ConnectionOptions = {
   password: process.env.POSTGRES_PASSWORD || 'postgres',
   database: process.env.POSTGRES_DATABASE || 'pinkTeam',
   ssl: { rejectUnauthorized: false },
-  entities: [ServiceEntity, CommentEntity, QuestionEntity],
+  entities: [ServiceEntity, CommentEntity, QuestionEntity, userEntity, tokenEntity],
   logging: 'all',
-  synchronize: false,
-  migrationsRun: true,
-  migrations:[
-    path.join(__dirname, "src/db/migrations/**/*.ts")
-  ],
-  cli:{
-    migrationsDir:path.join(__dirname, "src/db/migrations"),
-    entitiesDir:path.join(__dirname, "src/entities")
-  }
+  synchronize: true,
+  // migrationsRun: true,
+  // migrations:[
+  //   path.join(__dirname, "src/db/migrations/**/*.ts")
+  // ],
+  // cli:{
+  //   migrationsDir:path.join(__dirname, "src/db/migrations"),
+  //   entitiesDir:path.join(__dirname, "src/entities")
+  // }
 };
 export default config;

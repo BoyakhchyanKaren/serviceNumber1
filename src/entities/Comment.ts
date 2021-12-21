@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ServiceEntity } from './Service';
+import { userEntity } from './Users';
 
 @Entity('comment')
 export class CommentEntity extends BaseEntity {
@@ -20,6 +21,9 @@ export class CommentEntity extends BaseEntity {
 
   @Column()
   service_id: string;
+
+  @Column("varchar", {default:null})
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -33,4 +37,11 @@ export class CommentEntity extends BaseEntity {
   })
   @JoinColumn({ name: 'service_id' })
   service: ServiceEntity;
+
+  @ManyToOne(() => userEntity, user => user.comments, {
+    onDelete: "CASCADE",
+    eager: false,
+  })
+  @JoinColumn({name:'user_id'})
+  user: userEntity;
 }

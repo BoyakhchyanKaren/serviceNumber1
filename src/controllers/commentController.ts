@@ -11,12 +11,13 @@ const manager = () => getManager().getCustomRepository(CommentRepository);
 
 export class CommentController {
   static async createComment(req: Request, res: Response, next: NextFunction) {
+    //@ts-ignore
+    console.log(req?.userData);
     try {
-      const { content, service_id } = req.body;
+      const { content, service_id} = req.body;
       const comment = new CommentEntity();
       comment.content = content.trim();
       comment.service_id = service_id;
-
       const commentData = await manager().createComment(comment);
       if (!commentData) {
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));

@@ -5,10 +5,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  OneToMany, ManyToOne, JoinColumn
 } from 'typeorm';
 import { QuestionEntity } from './Question';
 import { CommentEntity } from './Comment';
+import { userEntity } from './Users';
 
 @Entity('service')
 export class ServiceEntity extends BaseEntity {
@@ -17,6 +18,9 @@ export class ServiceEntity extends BaseEntity {
 
   @Column('varchar')
   type: string;
+
+  @Column("varchar", {default:null})
+  user_id:string;
 
   @Column('int', {default: 0})
   rating_quantity: number;
@@ -53,4 +57,11 @@ export class ServiceEntity extends BaseEntity {
     eager: true,
   })
   comments: CommentEntity[];
+
+  @ManyToOne( () => userEntity, user => user.services, {
+    onDelete:"CASCADE",
+    eager:false,
+  })
+  @JoinColumn({name:"user_id"})
+  user: userEntity;
 }

@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ServiceEntity } from './Service';
+import { userEntity } from './Users';
 
 @Entity('question')
 export class QuestionEntity extends BaseEntity {
@@ -17,6 +18,9 @@ export class QuestionEntity extends BaseEntity {
 
   @Column("uuid")
   service_id:string;
+
+  @Column("varchar", {default: null})
+  user_id:string;
 
   @Column('varchar', { default: "" })
   description: string;
@@ -33,4 +37,11 @@ export class QuestionEntity extends BaseEntity {
   })
   @JoinColumn({ name: 'service_id' })
   service: ServiceEntity;
+
+  @ManyToOne(() => userEntity, user => user.services, {
+    onDelete: "CASCADE",
+    eager: false,
+  })
+  @JoinColumn({name:"user_id"})
+  user: userEntity;
 }
