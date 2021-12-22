@@ -5,6 +5,8 @@ const ExceptionMessages = {
     UPDATE: 'Nothing to update',
     COMMENT: 'Comment not found ',
     QUESTION: 'Question not found',
+    USERS: 'Users not found',
+    USER: `User not found, you provided wrong id or user doesn't exist`,
   },
   INVALID: {
     COMMENT: 'Not valid input for comment',

@@ -30,6 +30,32 @@ export class userController {
     }catch (e){
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
+  };
+
+  static async getUsers (req:Request, res:Response, next:NextFunction) {
+    try{
+      const usersData = await userRepository.getUsers();
+      if(!usersData) {
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.USERS))
+      }
+      res.status(StatusCode.SuccessRequest).json(usersData);
+    }catch (e) {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
+    }
+  };
+
+  static async getUser (req:Request, res:Response, next:NextFunction) {
+    try{
+      //@ts-ignore
+      const user = await req.userData;
+      const getUser = await userRepository.getUser(user);
+      if(!getUser) {
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.USER));
+      };
+      res.status(StatusCode.SuccessRequest).json(getUser);
+    }catch (e){
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
+    }
   }
 }
 
