@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { getManager } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { CommentRepository } from '../services/comment';
 import { CommentEntity } from '../entities/Comment';
 import { IComment } from '../interfaces';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
+import { userEntity } from '../entities/Users';
 
 const manager = () => getManager().getCustomRepository(CommentRepository);
 
@@ -15,10 +16,15 @@ export class CommentController {
     console.log(req?.userData);
     try {
       const { content, service_id, user_id} = req.body;
+      const user = await getRepository(userEntity).findOne(req.body.user_id);
+      if(!user){
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.USER));
+      }
       const comment = new CommentEntity();
       comment.content = content.trim();
       comment.service_id = service_id;
       comment.user_id = user_id;
+      comment.userName = user.username;
       const commentData = await manager().createComment(comment);
       if (!commentData) {
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
