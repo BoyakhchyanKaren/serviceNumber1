@@ -22,6 +22,9 @@ export class QuestionEntity extends BaseEntity {
   @Column("varchar", {default: null})
   user_id:string;
 
+  @Column("varchar", {default:""})
+  userName:string;
+
   @Column('varchar', { default: "" })
   description: string;
 

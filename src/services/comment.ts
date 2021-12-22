@@ -1,13 +1,15 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
 import { CommentEntity } from '../entities/Comment';
 import { IComment, newComment } from '../interfaces';
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {
+
   async createComment(newComment: newComment) {
     try {
-      await this.findOne(newComment.service_id);
-      return await this.save(newComment);
+      // await this.findOne(newComment.service_id);
+      const comment = await getRepository(CommentEntity).create(newComment);
+      return await this.save(comment);
     } catch {
       return null;
     }

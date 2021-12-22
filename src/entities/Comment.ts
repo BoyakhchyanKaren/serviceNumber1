@@ -25,6 +25,9 @@ export class CommentEntity extends BaseEntity {
   @Column("varchar", {default:null})
   user_id: string;
 
+  @Column("varchar", {default:""})
+  userName:string;
+
   @CreateDateColumn()
   created_at: Date;
 
