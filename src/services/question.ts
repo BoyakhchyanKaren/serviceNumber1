@@ -9,6 +9,7 @@ import { QuestionEntity } from '../entities/Question';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import { ServiceEntity } from '../entities/Service';
+import { userEntity } from '../entities/Users';
 
 @EntityRepository(QuestionEntity)
 export class QuestionRepository extends Repository<QuestionEntity> {
@@ -27,11 +28,17 @@ export class QuestionRepository extends Repository<QuestionEntity> {
 
   static async createQuestion(newQuestion: DeepPartial<QuestionEntity>) {
     try {
-      const newQuest = await getRepository(QuestionEntity).create(newQuestion);
       const service_id = await newQuestion.service_id;
+      const user_id = await newQuestion.user_id;
+      const user = await getRepository(userEntity).findOne(user_id);
+      if(!user){
+        return null;
+      }
+      newQuestion.userName = user.username;
+      const newQuest = await getRepository(QuestionEntity).create(newQuestion);
       await getRepository(ServiceEntity).findOne(service_id);
       await getRepository(QuestionEntity).save(newQuest);
-      return newQuest;
+      return newQuestion;
     } catch {
       return null;
     }

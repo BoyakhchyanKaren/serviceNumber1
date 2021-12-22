@@ -14,10 +14,11 @@ export class CommentController {
     //@ts-ignore
     console.log(req?.userData);
     try {
-      const { content, service_id} = req.body;
+      const { content, service_id, user_id} = req.body;
       const comment = new CommentEntity();
       comment.content = content.trim();
       comment.service_id = service_id;
+      comment.user_id = user_id;
       const commentData = await manager().createComment(comment);
       if (!commentData) {
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
