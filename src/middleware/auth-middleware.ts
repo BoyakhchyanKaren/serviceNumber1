@@ -3,9 +3,6 @@ import { NextFunction } from 'express';
 import { HttpErr } from '../exceptions/HttpError';
 
 export async function authMiddleware(req:Request, res:Response, next:NextFunction){
-  console.log('___________________________');
-  console.log(req.headers);
-  console.log('___________________________');
   try{
     //@ts-ignore
     const authorizationHeader = req.headers.authorization;

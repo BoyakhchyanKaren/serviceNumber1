@@ -44,6 +44,24 @@ export class userRepository {
       ...user,
       token
     }
+  };
+
+  static async getUsers ( ) {
+    return await getRepository(userEntity).find();
+  };
+
+
+  static async getUser ( user:object ) {
+    //@ts-ignore
+    const {email} = await user;
+    if(!email) {
+      return null;
+    };
+    const findUser = await getRepository(userEntity).findOne({email});
+    if(!findUser) {
+      throw new Error(`User with email : ${email} doesn't exist`);
+    };
+    return findUser;
   }
 };
 
