@@ -8,6 +8,9 @@ const ExceptionMessages = {
     USERS: 'Users not found',
     USER: `User not found, you provided wrong id or user doesn't exist`,
   },
+  // AUTHORIZATION:{
+  //
+  // },
   INVALID: {
     COMMENT: 'Not valid input for comment',
     QUESTION: 'Not valid input for questions',
