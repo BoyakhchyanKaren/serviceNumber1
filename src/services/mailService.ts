@@ -6,23 +6,24 @@ import sgMail from '@sendgrid/mail';
 dotenv.config();
 sgMail.setApiKey(String(process.env.SENDGRID_API_KEY));
 
-export function createEmail(to: string | undefined, link: string) {
-  const message = {
-    to:"karenboyakhchyan20@gmail.com",
-    from: "karenboyakhchyan@outlook.com",
-    subject: 'Hello',
-    text: 'Hiii',
-    html:
-      `
+export async function createEmail(to: string | undefined, link: string) {
+  try {
+    const message = {
+      to,
+      from: String(process.env.USER_MAIL),
+      subject: 'Hello',
+      text: 'Hiii',
+      html:
+        `
           <h1>Hello user</h1>
           <a href='${link}'>Click on this link to activate you account ${link}</a>
       `
-  };
-  sgMail.send(message).then(() => {
-    console.log("email sent")
-  }).catch((error) => {
-    console.log(error);
-  })
+    };
+    await sgMail.send(message);
+    console.log("message sent");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 
