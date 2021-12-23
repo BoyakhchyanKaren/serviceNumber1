@@ -29,7 +29,7 @@ export class userRepository {
     // await mailService.createMessage(email, `${process.env.API_URL}`);
     console.log(email);
 
-    createEmail(email, `${process.env.API_URL}`);
+    await createEmail(email, `${process.env.API_URL}`);
 
     console.log("4");
     await getRepository(userEntity).save(candidate);
