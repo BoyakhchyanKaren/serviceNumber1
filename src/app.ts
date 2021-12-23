@@ -16,7 +16,9 @@ import { authMiddleware } from './middleware/auth-middleware';
 export const getApplication = (): Express => {
   const app = express()
     .use(express.json())
-    .use(cors())
+    .use(cors({
+      origin:"*",
+    }))
     .use(helmet())
     .use(morgan('dev'))
     .use(compression())

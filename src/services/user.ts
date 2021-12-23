@@ -3,7 +3,10 @@ import { userEntity } from '../entities/Users';
 import password_hash from 'password-hash';
 import { tokenRepository } from './token';
 
+import { createEmail } from "./mailService";
+
 export class userRepository {
+
   static async registration(newUser: DeepPartial<userEntity>) {
     const email = await newUser.email;
     const password = await newUser.password;
@@ -14,14 +17,23 @@ export class userRepository {
     ;
     if (!password) {
       throw new Error('Please provide password');
-    }
-    ;
+    };
+
     const hashPassword = password_hash.generate(password);
     const candidate = await getRepository(userEntity).create({
       ...newUser,
       password: hashPassword
     });
+    console.log("3");
+    // await mailService.sendEmail(email, `${process.env.API_URL}`);
+    // await mailService.createMessage(email, `${process.env.API_URL}`);
+    console.log(email);
+
+    createEmail(email, `${process.env.API_URL}`);
+
+    console.log("4");
     await getRepository(userEntity).save(candidate);
+    console.log("5");
     return candidate;
   };
 
