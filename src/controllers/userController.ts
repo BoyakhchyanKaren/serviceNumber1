@@ -10,11 +10,14 @@ export class userController {
     try{
       const newUser = await req.body;
       const userData = await userRepository.registration(newUser);
+      console.log("1");
       if(!userData){
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
       };
+      console.log("2");
       res.status(StatusCode.CreateRequest).json(userData);
     }catch (e){
+      console.log(e);
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   };
