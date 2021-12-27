@@ -3,7 +3,9 @@ import { userRepository } from '../services/user';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
-
+import password_hash from 'password-hash';
+import { getRepository } from 'typeorm';
+import { userEntity } from '../entities/Users';
 export class userController {
 
   static async registration (req:Request, res:Response, next:NextFunction ) {
@@ -25,6 +27,15 @@ export class userController {
   static async login (req:Request, res:Response, next:NextFunction) {
     try{
       const data = await req.body;
+      const {password, email} = req.body;
+      const user  = await getRepository(userEntity).findOne({email});
+      if(!user){
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.USER));
+      };
+      const passedPassword = password_hash.verify(password, user?.password);
+      if(!passedPassword){
+        return next(HttpErr.notFound(ExceptionMessages.INVALID.PASSWORD));
+      }
       const loginData = await userRepository.login(data);
       if(!loginData){
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));

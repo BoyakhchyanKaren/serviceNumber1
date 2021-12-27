@@ -8,17 +8,16 @@ const ExceptionMessages = {
     USERS: 'Users not found',
     USER: `User not found, you provided wrong id or user doesn't exist`,
   },
-  // AUTHORIZATION:{
-  //
-  // },
   INVALID: {
     COMMENT: 'Not valid input for comment',
     QUESTION: 'Not valid input for questions',
     SERVICE: 'Not valid input for service',
     ID: 'Id is not valid',
+    PASSWORD:"Wrong password",
+    EMAIL:"Wrong Email",
   },
 
   INTERNAL: 'Internal Server Error',
   DB_ERROR: 'Not valid service ID',
 };
-export default ExceptionMessages;
+export default ExceptionMessages
