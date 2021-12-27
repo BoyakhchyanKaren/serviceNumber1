@@ -16,6 +16,8 @@ class HttpError {
 
   UnauthorizedError(message:string){
     return new Exception(statusCodes.UnauthorizedError, message);
-  }  
+  }
+
+
 }
 export const HttpErr = new HttpError();
