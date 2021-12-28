@@ -3,7 +3,7 @@ import { userEntity } from '../entities/Users';
 import password_hash from 'password-hash';
 import { tokenRepository } from './token';
 import removeItem from '../utils/removeItem';
-import mailService from './mailService';
+// import mailService from './mailService';
 export class userRepository {
 
   static async registration(newUser: DeepPartial<userEntity>) {
@@ -24,8 +24,8 @@ export class userRepository {
       password: hashPassword
     });
     // @ts-ignore
-    const fullName = `${newUser.firstname} ${newUser.lastname}`;
-    await mailService.sendEmail(email, `${process.env.API_URL}`, fullName);
+    // const fullName = `${newUser.firstname} ${newUser.lastname}`;
+    // await mailService.sendEmail(email, `${process.env.API_URL}`, fullName);
     await getRepository(userEntity).save(candidate);
     return candidate;
   };
