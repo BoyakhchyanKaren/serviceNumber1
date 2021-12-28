@@ -7,6 +7,8 @@ const ExceptionMessages = {
     QUESTION: 'Question not found',
     USERS: 'Users not found',
     USER: `User not found, you provided wrong id or user doesn't exist`,
+    RULES: `Rules not found`,
+    RULE: `Rule not found`,
   },
   INVALID: {
     COMMENT: 'Not valid input for comment',
