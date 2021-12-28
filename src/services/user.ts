@@ -2,9 +2,8 @@ import { DeepPartial, getRepository } from 'typeorm';
 import { userEntity } from '../entities/Users';
 import password_hash from 'password-hash';
 import { tokenRepository } from './token';
-
-import { createEmail } from "./mailService";
-
+import removeItem from '../utils/removeItem';
+import mailService from './mailService';
 export class userRepository {
 
   static async registration(newUser: DeepPartial<userEntity>) {
@@ -24,16 +23,10 @@ export class userRepository {
       ...newUser,
       password: hashPassword
     });
-    console.log("3");
-    // await mailService.sendEmail(email, `${process.env.API_URL}`);
-    // await mailService.createMessage(email, `${process.env.API_URL}`);
-    console.log(email);
-
-    await createEmail(email, `${process.env.API_URL}`);
-
-    console.log("4");
+    // @ts-ignore
+    const fullName = `${newUser.firstname} ${newUser.lastname}`;
+    await mailService.sendEmail(email, `${process.env.API_URL}`, fullName);
     await getRepository(userEntity).save(candidate);
-    console.log("5");
     return candidate;
   };
 
@@ -51,9 +44,9 @@ export class userRepository {
     };
     const token = await tokenRepository.generateToken({...loginData});
     await tokenRepository.saveToken(loginData.user_id, token);
-    console.log(user);
+    const userInfo = await removeItem(user);
     return {
-      ...user,
+      ...userInfo,
       token
     }
   };

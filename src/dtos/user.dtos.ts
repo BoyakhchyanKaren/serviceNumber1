@@ -14,8 +14,13 @@ export const createUserDto = [
     .isLength({max:20, min:3})
     .withMessage("Not valid password"),
 
-  body("username")
+  body("firstname")
     .notEmpty()
     .isString()
-    .withMessage("Please provide correct username"),
+    .withMessage("Please provide correct firstname"),
+
+  body("lastname")
+    .notEmpty()
+    .isString()
+    .withMessage("Please provide correct lastname"),
 ];

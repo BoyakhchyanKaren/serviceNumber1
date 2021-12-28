@@ -34,7 +34,7 @@ export class QuestionRepository extends Repository<QuestionEntity> {
       if(!user){
         return null;
       }
-      newQuestion.userName = user.username;
+      newQuestion.userName = `${user.firstname} ${user.lastname}`;
       const newQuest = await getRepository(QuestionEntity).create(newQuestion);
       await getRepository(ServiceEntity).findOne(service_id);
       await getRepository(QuestionEntity).save(newQuest);

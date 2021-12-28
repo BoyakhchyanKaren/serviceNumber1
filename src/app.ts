@@ -33,6 +33,9 @@ export const getApplication = (): Express => {
     .all('*', (req: Request, res: Response, next: NextFunction) => {
       next(HttpErr.notFound(`Can't find ${req.originalUrl} on this server!`));
     })
+    // .use((req:Request,res:Response)=>{
+    //   res.json({message:"Path not found..."})
+    // })
     .use(errorHandler);
   return app;
 };

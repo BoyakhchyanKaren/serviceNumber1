@@ -13,7 +13,6 @@ const manager = () => getManager().getCustomRepository(CommentRepository);
 export class CommentController {
   static async createComment(req: Request, res: Response, next: NextFunction) {
     //@ts-ignore
-    console.log(req?.userData);
     try {
       const { content, service_id, user_id} = req.body;
       const user = await getRepository(userEntity).findOne(req.body.user_id);
@@ -24,7 +23,7 @@ export class CommentController {
       comment.content = content.trim();
       comment.service_id = service_id;
       comment.user_id = user_id;
-      comment.userName = user.username;
+      comment.userName = `${user.firstname} ${user.lastname}`;
       const commentData = await manager().createComment(comment);
       if (!commentData) {
         return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
