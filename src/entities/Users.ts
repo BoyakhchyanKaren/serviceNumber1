@@ -24,7 +24,10 @@ export class userEntity extends BaseEntity{
   password:string;
 
   @Column("varchar")
-  username:string;
+  firstname:string;
+
+  @Column("varchar")
+  lastname:string;
 
   @CreateDateColumn()
   created_at:Date;
