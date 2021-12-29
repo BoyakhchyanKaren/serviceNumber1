@@ -70,6 +70,21 @@ export class userController {
     }catch (e){
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
+  };
+
+  static async updateFavorites(req:Request, res:Response, next:NextFunction){
+    try{
+      //@ts-ignore
+      const user = await req.userData;
+      const { service_id } = await req.body;
+      const userInfo = await userRepository.updateFavorites(user, service_id);
+      if(!userInfo){
+        return next(HttpErr.notFound(ExceptionMessages.INVALID.USER))
+      };
+      res.status(StatusCode.SuccessRequest).json(userInfo);
+    }catch (e) {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
+    }
   }
 }
 

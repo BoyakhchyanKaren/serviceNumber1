@@ -29,6 +29,9 @@ export class userEntity extends BaseEntity{
   @Column("varchar")
   lastname:string;
 
+  @Column("jsonb",{array:false, default: () => "'[]'", nullable: false,})
+  favorites:object[];
+
   @CreateDateColumn()
   created_at:Date;
 
