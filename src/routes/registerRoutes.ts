@@ -28,5 +28,11 @@ registerRoutes.get('/getUser',
   authMiddleware,
   userController.getUser);
 
+registerRoutes.patch("/toggleFavorite",
+  validateRequestSchema,
+  //@ts-ignore
+  authMiddleware,
+  userController.updateFavorites);
+
 
 export default registerRoutes;
