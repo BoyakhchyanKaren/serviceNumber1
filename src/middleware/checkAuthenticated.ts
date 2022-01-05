@@ -13,7 +13,7 @@ interface userI {
 };
 
 export function checkAuthenticated(req:Request, res:Response, next:NextFunction){
-  // const token = req.cookies["session-token"];
+
   const { token } = req.body;
   let user:userI;
 
