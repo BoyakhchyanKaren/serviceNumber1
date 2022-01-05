@@ -21,4 +21,7 @@ export class googleEntity extends BaseEntity{
 
   @Column("varchar")
   picture:string;
+
+  @Column("varchar")
+  newToken:string;
 };
