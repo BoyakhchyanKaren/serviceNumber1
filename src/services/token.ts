@@ -37,6 +37,11 @@ export class tokenRepository {
   };
 
   static async findToken ( accessToken:string ) {
-    return await getRepository(tokenEntity).findOne({access_token:accessToken});
+    // return await getRepository(tokenEntity).findOne({access_token:accessToken});
+    return await getRepository(tokenEntity).findOne({});
   };
+
+  // static async mergeToken (old_token:<>, access_token:string) {
+  //   await getRepository(tokenEntity).merge(old_token, {access_token});
+  // }
 };

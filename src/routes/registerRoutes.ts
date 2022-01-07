@@ -21,6 +21,10 @@ registerRoutes.get('/users',
   validateRequestSchema,
   userController.getUsers);
 
+registerRoutes.post('/googleLogin',
+  validateRequestSchema,
+  userController.googleLogin);
+
 
 registerRoutes.get('/getUser',
   validateRequestSchema,

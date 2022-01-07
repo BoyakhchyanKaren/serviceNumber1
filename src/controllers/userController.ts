@@ -85,6 +85,23 @@ export class userController {
     }catch (e) {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
+  };
+
+  static async googleLogin(req:Request, res:Response, next:NextFunction) {
+    try{
+      const {token} = await req.body;
+      console.log(token);
+      const loginData = await userRepository.tokenGenerateProcess(token);
+      if(!loginData){
+        next(HttpErr.notFound(ExceptionMessages.INVALID.USER));
+      };
+      console.log("-------------------------------------------");
+      console.log(loginData);
+      console.log("-------------------------------------------");
+      res.status(StatusCode.SuccessRequest).json(loginData);
+    }catch (e){
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
+    }
   }
 }
 

@@ -12,7 +12,7 @@ import { HttpErr } from './exceptions/HttpError';
 import { errorHandler } from './controllers/errorHandler';
 import registerRoutes from './routes/registerRoutes';
 import ruleRoutes from './routes/ruleRoutes';
-import googleRoutes from './routes/googleRoutes';
+// import googleRoutes from './routes/googleRoutes';
 
 export const getApplication = (): Express => {
   const app = express()
@@ -28,7 +28,7 @@ export const getApplication = (): Express => {
     .use('/api/v1/questions', questionRoutes)
     .use('/api/v1', registerRoutes)
     .use('/api/v1/rules', ruleRoutes)
-    .use('/api/v1', googleRoutes)
+    // .use('/api/v1', googleRoutes)
     .use('/api/v1/Swagger', SwaggerUI.serve, SwaggerUI.setup(SwaggerDoc))
     .get('/', (req: Request, res: Response) => {
       res.redirect('https://pink-team-deployment.herokuapp.com/api/v1/Swagger');

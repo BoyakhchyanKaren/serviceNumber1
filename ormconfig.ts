@@ -6,7 +6,6 @@ import { QuestionEntity } from './src/entities/Question';
 import { userEntity } from './src/entities/Users';
 import { tokenEntity } from './src/entities/Tokens';
 import { ruleEntity } from './src/entities/Rule';
-import { googleEntity } from './src/entities/googleUsers';
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ const config: ConnectionOptions = {
   password: process.env.POSTGRES_PASSWORD || 'postgres',
   database: process.env.POSTGRES_DATABASE || 'pinkTeam',
   ssl: { rejectUnauthorized: false },
-  entities: [ServiceEntity, CommentEntity, QuestionEntity, userEntity, tokenEntity, ruleEntity, googleEntity],
+  entities: [ServiceEntity, CommentEntity, QuestionEntity, userEntity, tokenEntity, ruleEntity],
   logging: 'all',
   synchronize: true,
   // migrationsRun: true,
