@@ -4,6 +4,10 @@ import password_hash from 'password-hash';
 import { tokenRepository } from './token';
 import removeItem from '../utils/removeItem';
 import { ServiceEntity } from '../entities/Service';
+import { OAuth2Client, TokenPayload } from 'google-auth-library';
+const client = new OAuth2Client(String(process.env.CLIENT_ID));
+import {v4} from 'uuid';
+import { tokenEntity } from '../entities/Tokens';
 // import mailService from './mailService';
 export class userRepository {
 
@@ -49,7 +53,7 @@ export class userRepository {
     return {
       ...userInfo,
       token
-    }
+    };
   };
 
   static async getUsers ( ) {
@@ -110,6 +114,50 @@ export class userRepository {
       await getRepository(userEntity).merge(user, newUser);
       await getRepository(userEntity).save(user);
       return user;
+    }
+  };
+
+  static async tokenGenerateProcess(accessToken:string) {
+    const ticket = await client.verifyIdToken({
+      idToken:accessToken,
+      audience:String(process.env.CLIENT_ID),
+    });
+    const payload:TokenPayload = <TokenPayload>ticket.getPayload();
+    //@ts-ignore
+    const {email} = payload;
+    const user = await getRepository(userEntity).findOne({email});
+    if(user){
+      const {firstname, lastname} = user;
+      const newUser = {
+        firstname,
+        lastname,
+        email
+      };
+
+      const newToken = await tokenRepository.generateToken(newUser);
+      const result = await removeItem(user);
+      return {
+        ...result,
+        token:newToken
+      };
+    }else if(!user){
+      const {given_name:firstname, family_name:lastname, email} = payload;
+      const newUser  = {
+        firstname,
+        lastname,
+        email,
+        password: v4(),
+      };
+      const newToken = await tokenRepository.generateToken({...newUser});
+      const googleUser = await getRepository(userEntity).create(newUser);
+      const generatedToken = await tokenRepository.saveToken(googleUser.user_id, newToken);
+      await getRepository(userEntity).save(googleUser);
+      const findGoogleUser:any = await getRepository(userEntity).findOne({email});
+      const resultUser = await removeItem(findGoogleUser);
+      return {
+        ...resultUser,
+        token:generatedToken?.access_token
+      };
     }
   }
 };
