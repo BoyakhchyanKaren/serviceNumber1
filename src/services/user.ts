@@ -137,7 +137,7 @@ export class userRepository {
       const newToken = await tokenRepository.generateToken(newUser);
       //
       let bool = false;
-      if(user.password !== "sha1$e9094648$1$ff4c1b0c3413896859d74363918fba8145cb99c0"){
+      if(!password_hash.verify("123456789", user.password)){
         bool = true;
       };
       //
@@ -153,7 +153,7 @@ export class userRepository {
         firstname,
         lastname,
         email,
-        password: "sha1$e9094648$1$ff4c1b0c3413896859d74363918fba8145cb99c0",
+        password: password_hash.generate("123456789"),
       };
       const newToken = await tokenRepository.generateToken({...newUser});
       const googleUser = await getRepository(userEntity).create(newUser);
@@ -172,7 +172,7 @@ export class userRepository {
     const user = await getRepository(userEntity).findOne({email});
     if(!user){
       return null;
-    }
+    };
     const hashedPass = password_hash.generate(newPassword);
     await getRepository(userEntity).merge(user, {password:hashedPass});
     const newUser =  await getRepository(userEntity).save(user);
