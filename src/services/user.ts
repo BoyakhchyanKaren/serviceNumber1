@@ -135,10 +135,12 @@ export class userRepository {
       };
 
       const newToken = await tokenRepository.generateToken(newUser);
+      //
       let bool;
-      if(user.password !== "sha1$b5c4a5d7$1$e84b2ec6e66249c3d3e0451341b74ee75433d047789"){
+      if(user.password !== "sha1$e9094648$1$ff4c1b0c3413896859d74363918fba8145cb99c0"){
         bool = true;
       };
+      //
       const result = await removeItem(user);
       return {
         ...result,
@@ -151,7 +153,7 @@ export class userRepository {
         firstname,
         lastname,
         email,
-        password: "sha1$b5c4a5d7$1$e84b2ec6e66249c3d3e0451341b74ee75433d047789",
+        password: "sha1$e9094648$1$ff4c1b0c3413896859d74363918fba8145cb99c0",
       };
       const newToken = await tokenRepository.generateToken({...newUser});
       const googleUser = await getRepository(userEntity).create(newUser);
