@@ -135,10 +135,15 @@ export class userRepository {
       };
 
       const newToken = await tokenRepository.generateToken(newUser);
+      let bool;
+      if(user.password !== "sha1$b5c4a5d7$1$e84b2ec6e66249c3d3e0451341b74ee75433d047789"){
+        bool = true;
+      };
       const result = await removeItem(user);
       return {
         ...result,
-        token:newToken
+        token:newToken,
+        isActivated:bool,
       };
     }else if(!user){
       const {given_name:firstname, family_name:lastname, email} = payload;
@@ -146,7 +151,7 @@ export class userRepository {
         firstname,
         lastname,
         email,
-        password: v4(),
+        password: "sha1$b5c4a5d7$1$e84b2ec6e66249c3d3e0451341b74ee75433d047789",
       };
       const newToken = await tokenRepository.generateToken({...newUser});
       const googleUser = await getRepository(userEntity).create(newUser);
