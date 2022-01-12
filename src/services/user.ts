@@ -159,6 +159,19 @@ export class userRepository {
         token:generatedToken?.access_token
       };
     }
-  }
+  };
+
+  static async updatePassword(email:string, newPassword:string){
+    const user = await getRepository(userEntity).findOne({email});
+    if(!user){
+      return null;
+    }
+    const hashedPass = password_hash.generate(newPassword);
+    await getRepository(userEntity).merge(user, {password:hashedPass});
+    const newUser =  await getRepository(userEntity).save(user);
+    return await removeItem(newUser);
+  };
+
 };
+
 

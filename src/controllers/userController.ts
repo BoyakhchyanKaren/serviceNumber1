@@ -95,13 +95,28 @@ export class userController {
       if(!loginData){
         next(HttpErr.notFound(ExceptionMessages.INVALID.USER));
       };
-      console.log("-------------------------------------------");
       console.log(loginData);
-      console.log("-------------------------------------------");
       res.status(StatusCode.SuccessRequest).json(loginData);
     }catch (e){
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
-  }
+  };
+
+  static async changePassword(req:Request, res:Response,next:NextFunction){
+    try {
+      const { new_password } = await req.body;
+      //@ts-ignore
+      const { email } = req.userData;
+      const updatedData = await userRepository.updatePassword(email, new_password);
+      if(!updatedData){
+        next(HttpErr.notFound(ExceptionMessages.INVALID.USER));
+      };
+      res.status(StatusCode.SuccessRequest).json(updatedData);
+    }
+    catch (e) {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
+    }
+  };
+
 }
 

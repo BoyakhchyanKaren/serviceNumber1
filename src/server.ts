@@ -14,7 +14,7 @@ const app = getApplication();
     console.error('💥 ERROR: Database connection failed!!', e);
     process.exit(1);
   }
-  console.log('DB connection...');
+  console.log('DB connected...');
   const { PORT } = process.env;
   app.listen(PORT, () => {
     console.log(`Starting listen server on port ${PORT}...`);

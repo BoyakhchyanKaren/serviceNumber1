@@ -38,5 +38,11 @@ registerRoutes.patch("/toggleFavorite",
   authMiddleware,
   userController.updateFavorites);
 
+registerRoutes.patch("/changePassword",
+  validateRequestSchema,
+  //@ts-ignore
+  authMiddleware,
+  userController.changePassword);
+
 
 export default registerRoutes;

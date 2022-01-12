@@ -7,7 +7,6 @@ import {
 } from 'typeorm';
 import { ServiceEntity } from '../entities/Service';
 import { IService } from '../interfaces';
-import { userRepository } from './user';
 import { userEntity } from '../entities/Users';
 
 @EntityRepository(ServiceEntity)
@@ -18,8 +17,7 @@ export class ServiceRepository extends Repository<ServiceEntity> {
 
   static async getService(serviceId: string) {
     try {
-      const service = await getRepository(ServiceEntity).findOne(serviceId);
-      return service;
+      return await getRepository(ServiceEntity).findOne(serviceId);
     } catch {
       return null;
     }
