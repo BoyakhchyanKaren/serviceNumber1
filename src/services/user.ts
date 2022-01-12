@@ -136,7 +136,7 @@ export class userRepository {
 
       const newToken = await tokenRepository.generateToken(newUser);
       //
-      let bool;
+      let bool = false;
       if(user.password !== "sha1$e9094648$1$ff4c1b0c3413896859d74363918fba8145cb99c0"){
         bool = true;
       };
