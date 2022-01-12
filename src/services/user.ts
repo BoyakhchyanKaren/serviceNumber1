@@ -52,7 +52,8 @@ export class userRepository {
     const userInfo = await removeItem(user);
     return {
       ...userInfo,
-      token
+      token,
+      isActivated:true,
     };
   };
 
