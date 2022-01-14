@@ -164,7 +164,8 @@ export class userRepository {
       const resultUser = await removeItem(findGoogleUser);
       return {
         ...resultUser,
-        token:generatedToken?.access_token
+        token:generatedToken?.access_token,
+        isActivated:false,
       };
     }
   };
@@ -179,6 +180,7 @@ export class userRepository {
     const newUser =  await getRepository(userEntity).save(user);
     return await removeItem(newUser);
   };
+
 
 };
 
