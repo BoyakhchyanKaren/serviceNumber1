@@ -82,7 +82,7 @@ export class ServiceController {
       if(!whatsPhoneNumber){
         return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE));
       }
-      res.status(StatusCode.SuccessRequest).redirect(`wa.me/${whatsPhoneNumber}`);
+      res.status(StatusCode.SuccessRequest).redirect(`http://wa.me/${whatsPhoneNumber}`);
     }catch (e){
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
