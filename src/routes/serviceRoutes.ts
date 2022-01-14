@@ -28,5 +28,6 @@ router
     ServiceController.updateService
   )
   .delete(ServiceController.deleteService);
+router.post("/whatsapp",ServiceController.callWhatsApp);
 
 export { router as serviceRoutes };

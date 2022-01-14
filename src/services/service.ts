@@ -8,6 +8,7 @@ import {
 import { ServiceEntity } from '../entities/Service';
 import { IService } from '../interfaces';
 import { userEntity } from '../entities/Users';
+import { static } from 'express';
 
 @EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> {
@@ -65,5 +66,15 @@ export class ServiceRepository extends Repository<ServiceEntity> {
     } catch {
       return null;
     }
+  };
+
+  static async whatsAppCall(service_id:string) {
+    const currentService = await getRepository(ServiceEntity).findOne(service_id);
+    if(!currentService){
+      return new Error("Service not found");
+    }
+    const { phone_number } = currentService;
+    return phone_number;
   }
+
 }
