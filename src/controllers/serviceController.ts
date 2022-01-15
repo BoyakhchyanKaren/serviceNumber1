@@ -82,7 +82,10 @@ export class ServiceController {
       if(!whatsPhoneNumber){
         return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE));
       }
-      res.status(StatusCode.SuccessRequest).redirect(`https://api.whatsapp.com/send/?phone=${whatsPhoneNumber}`);
+      //res.status(StatusCode.SuccessRequest).redirect(`https://api.whatsapp.com/send/?phone=${whatsPhoneNumber}`);
+      res.writeHead(301, {
+        Location:`https://api.whatsapp.com/send/?phone=${whatsPhoneNumber}`
+      });
     }catch (e){
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
