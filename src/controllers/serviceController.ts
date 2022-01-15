@@ -3,7 +3,6 @@ import { ServiceRepository } from '../services/service';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
-import * as http from 'http';
 
 export class ServiceController {
 
@@ -82,7 +81,6 @@ export class ServiceController {
       if(!whatsPhoneNumber){
         return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE));
       }
-      //res.status(StatusCode.SuccessRequest).redirect(`https://api.whatsapp.com/send/?phone=${whatsPhoneNumber}`);
       res.writeHead(301, {
         Location:`https://api.whatsapp.com/send/?phone=${whatsPhoneNumber}`
       });
@@ -91,4 +89,4 @@ export class ServiceController {
     }
   };
 
-}
+};
