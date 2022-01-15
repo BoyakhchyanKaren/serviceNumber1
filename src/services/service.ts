@@ -8,7 +8,6 @@ import {
 import { ServiceEntity } from '../entities/Service';
 import { IService } from '../interfaces';
 import { userEntity } from '../entities/Users';
-import { static } from 'express';
 
 @EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> {

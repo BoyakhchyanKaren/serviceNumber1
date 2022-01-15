@@ -13,4 +13,5 @@ export class init21639408485083 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "service" ADD "rating_quantity" bigint NOT NULL DEFAULT '0'`);
     }
 
-}
+};
+
